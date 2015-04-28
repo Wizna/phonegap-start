@@ -22,15 +22,15 @@ var app = {
         this.bindEvents();
         
     },
-    var showMessageBox = function() {   
-              navigator.notification.alert("Hello World of PhoneGap");   
+    showMessageBox : function() {   
+              alert("Hello World of PhoneGap");   
                       }  
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', showMessageBox, true);
+        document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
@@ -49,5 +49,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        app.showMessageBox();
     }
 };
