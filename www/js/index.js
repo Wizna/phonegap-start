@@ -20,14 +20,17 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        alert("hehe");
+        
     },
+    var showMessageBox = function() {   
+              navigator.notification.alert("Hello World of PhoneGap");   
+                      }  
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('deviceready', showMessageBox, false);
     },
     // deviceready Event Handler
     //
