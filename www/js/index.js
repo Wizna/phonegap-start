@@ -22,9 +22,9 @@ var app = {
         this.bindEvents();
         
     },
-    showMessageBox : function() {   
+    showMessageBox: function() {   
               alert("Hello World of PhoneGap");   
-                      }  
+                      }  ,
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
