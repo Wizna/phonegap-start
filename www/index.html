@@ -19,32 +19,43 @@
     specific language governing permissions and limitations
     under the License.
 -->
+<!DOCTYPE html> 
 <html> 
 <head> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
-<style type="text/css"> 
-body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;} 
-</style> 
-<script type="text/javascript" 
-src="http://api.map.baidu.com/api?v=2.0&ak=5a21b9801cac081f6473bafdc558c53a"></script> <title>反地址解析</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <title>Geolocation 例子</title> 
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script> 
+<script type="text/javascript" charset="utf-8">  
+    //等待 PhoneGap 加载 
+document.addEventListener("deviceready", onDeviceReady, false);  
+varwatchID = null;  
+    //加载完成 
+    function onDeviceReady() { 
+        // Update every 3 seconds 
+var options = { frequency: 3000 }; 
+watchID = navigator.geolocation.watchPosition(onSuccess, onError, options); 
+    }  
+    // onSuccess 回调函数     //  接收包含当前地理位置坐标信息的 Position 对象 
+    function onSuccess(position) { 
+var element = document.getElementById('geolocation'); element.innerHTML = '纬度: '  + position.coords.latitude      + '<br />' +                             '经度: ' + position.coords.longitude     + '<br />' + 
+                            '<hr />'      + element.innerHTML; 
+    }  
+    //取消获取地理位置信息 
+    function clearWatch() { 
+          if (watchID != null) { 
+navigator.geolocation.clearWatch(watchID); 
+watchID = null; 
+        } 
+    }  
+    // onError 回调函数，接收包含具体错误信息的 PositionError 对象 
+    function onError(error) { 
+      alert('code: '    + error.code    + '\n' + 
+            'message: ' + error.message + '\n'); 
+    }  
+</script> 
 </head> 
 <body> 
-<div id="allmap"></div> 
+<p id="geolocation">监测地理位置信息中。。。</p> 
+<button onclick="clearWatch();">取消监测地理位置信息</button> 
 </body> 
-</html> 
-<script type="text/javascript">  
-// 百度地图 API 功能 
-var map = new BMap.Map("allmap"); 
-  var point = new BMap.Point(116.331398,39.897445); 
-map.centerAndZoom(point,12); 
-var gc = new BMap.Geocoder();       
-map.addEventListener("click", function(e){         
-    var pt = e.point; 
-    gc.getLocation(pt, function(rs){ 
-        var addComp = rs.addressComponents; 
-        alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + 
-addComp.streetNumber); 
-    });         
-}); 
-</script>
+</html>
